@@ -16,7 +16,7 @@ public class StackFunction {
         Stack<Integer> stk=new Stack<>();
         stk.push(10);
         stk.push(6);
-        stk.push(30);
+        stk.push(5);
         stk.push(20);
         //display(stk);
         System.out.println("--------------------------------");
@@ -27,9 +27,88 @@ public class StackFunction {
        // reversestack(stk);
         // reverseKElement(2,stk);
          // reverseQueue();
-        reverseKElementQueue();
+       // reverseKElementQueue();
+        //minStack(stk);
+      //  balancedParanthesis("({})");
+         // maxDepth("((()))()");
+        balancedPranthesisSubString("()())");
     }
-    
+
+    public void balancedPranthesisSubString(String exp){
+        Stack<Character> stack=new Stack<>();
+        char[] ch= exp.toCharArray();
+        int num=0;
+        for (int i=0;i<ch.length;i++){
+            if(ch[i]=='('){
+                stack.push(ch[i]);
+            }
+            else if(ch[i]==')'  && !stack.empty()){
+                if(stack.pop()=='(')
+                    num++;
+            }
+            else {
+                break;
+            }
+        }
+        System.out.println(num);
+    }
+    public void maxDepth(String exp){
+       // Stack<Character> stack=new Stack<>();
+        int max=0;
+        int depth=0;
+        char[] ch=exp.toCharArray();
+        for(int i=0;i<ch.length;i++){
+            if(ch[i]=='(') {
+       //         stack.push(ch[i]);
+                depth++;
+            }
+            else if(ch[i]==')'){
+                depth--;
+            }
+            if(depth>max)
+                max=depth;
+        }
+        System.out.println(max);
+    }
+    public void balancedParanthesis(String exp){
+        Stack<Character> stack=new Stack<>();
+        //char c;
+        for(char ch:exp.toCharArray()){
+           switch (ch){
+               case '(':
+               case '{':
+                   stack.push(ch);
+                        break;
+               case '}':
+                        if(!stack.empty()&&stack.pop()!='{')
+                            System.out.println("unbalanced{");
+                        break;
+
+               case ')': if(!stack.empty()&&stack.pop()!=')')
+                              System.out.println("unbalanced(");
+                        break;
+
+           }
+        }
+    }
+    public void minStack(Stack<Integer>stack){
+       // Stack<Integer>stack=new Stack<>();
+        Stack<Integer>stack1=new Stack<>();
+        stack1.push(stack.pop());
+        while (!stack.empty()){
+            int num1=stack.pop();
+            int num2=stack1.pop();
+            if(num1<num2){
+                stack1.push(num1);
+            }
+            else {
+                stack1.push(num2);
+            }
+        }
+        System.out.println(stack1.pop());
+
+
+    }
     public void reverseKElementQueue(){
         ArrayDeque<Integer> que=new ArrayDeque<>();
         que.add(10);
