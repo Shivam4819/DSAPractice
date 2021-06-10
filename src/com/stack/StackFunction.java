@@ -31,9 +31,69 @@ public class StackFunction {
         //minStack(stk);
       //  balancedParanthesis("({})");
          // maxDepth("((()))()");
-        balancedPranthesisSubString("()())");
+      //  balancedPranthesisSubString("()())");
+        //findDuplicateParanthessis("(a)");
+        //countParanthessis("((a+b))");
+        infixToPostfix("(a+b)*c");
     }
 
+    public void infixToPostfix(String exp){
+        Stack<Character> stack=new Stack<>();
+        char[] ch=exp.toCharArray();
+        for(int i=0;i<ch.length;i++){
+            if(ch[i]=='+'||ch[i]=='-'||ch[i]=='/'||ch[i]=='*'){
+                stack.push(ch[i]);
+            }
+            else if(ch[i]!='('&& ch[i]!=')'){
+                System.out.print(ch[i]);
+            }
+        }
+        while (!stack.empty()){
+            System.out.print(stack.pop());
+        }
+    }
+    public void countParanthessis(String exp){
+        Stack<Integer> count=new Stack<>();
+        String out=new String();
+        int counter=1;
+        char[] ch=exp.toCharArray();
+
+        for(int i=0;i<ch.length;i++){
+            if(ch[i]=='('){
+                count.push(counter);
+                out +=counter;
+                counter++;
+            }
+            else if(ch[i]==')'){
+                out+=count.pop();
+            }
+        }
+        System.out.println(out);
+
+    }
+    public void findDuplicateParanthessis(String exp){
+        Stack<Character> stack=new Stack<>();
+        char[] ch=exp.toCharArray();
+        int count=0;
+        for(int i=0;i<ch.length;i++){
+         if(ch[i]!=')'){
+             stack.push(ch[i]);
+         }
+         else{
+             while (stack.size()!=0 && stack.peek()!='('){
+                 stack.pop();
+                 count++;
+             }
+         }
+        }
+        if(count==0||count==1){
+            System.out.println("duplicate");
+        }
+        else {
+            System.out.println("not duplicate");
+        }
+
+    }
     public void balancedPranthesisSubString(String exp){
         Stack<Character> stack=new Stack<>();
         char[] ch= exp.toCharArray();
